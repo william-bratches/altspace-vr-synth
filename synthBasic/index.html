@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>SynthBasic</title>
+<script src="http://sdk.altvr.com/libs/three.js/r73/build/three.js"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
+<script src="../dist/altspace.min.js"></script>
+<script src="../dist/timbre.js"></script>
+<script src="http://sdk.altvr.com/libs/three.js/r73/examples/js/loaders/MTLLoader.js"></script>
+<script src="js/modules/init.js"></script>
+<script src="js/modules/shapeMaker.js"></script>
+</head>
+<body>
+</body>
+<script>
+var sceneSync;
+var sim = altspace.utilities.Simulation();
+var config = {
+	authorId: 'AltspaceVR',
+	appId: 'SpinningCube'
+};
+
+function connectAltSpace() {
+	altspace.utilities.sync.connect(config).then(
+		function(connection) {
+		  sceneSync = altspace.utilities.behaviors.SceneSync(connection.instance,
+		    {
+		      instantiators: {'createSynth': createSynth },
+		      ready: ready
+		    });
+		  sim.scene.addBehavior(sceneSync);
+	});
+}
+
+function main() {
+	connectAltSpace();
+}
+
+function initWaveForms() {
+	var sync = altspace.utilities.behaviors.Object3DSync()
+	var waveFormTypeButtons = new THREE.Group();
+	var waveForms = {
+		sin: Modules.ShapeMaker.createCube(100, "#33CCFF"),
+		saw: Modules.ShapeMaker.createCube(100, "#D90909");
+	}
+	waveForms.sin.addBehaviors(sync);
+	waveForms.saw.addBehaviors(sync, saw.translateY(200));
+	waveFormTypeButtons.translateX(-400);
+	waveFormTypeButtons.add(waveForms.sin, waveForms.saw);
+	sim.scene.add(waveFormTypeButtons);
+	return waveForms;
+}
+
+function waveFormEventHandler(waveForms) {
+	// events - need to abstract later
+	var t = T("sin");
+	sin.addEventListener('cursordown', function() {
+		t.play();
+	});
+
+	sin.addEventListener('cursorup', function() {
+		t.pause();
+	});
+}
+
+function createSynth() {
+	var waveforms = initWaveForms();
+	waveFormEventHandler(waveforms);
+}
+
+// make it so u can instantiate arbitrary number of octaves
+function ready(firstInstance) {
+	if (firstInstance) {
+		sceneSync.instantiate('createSynth');
+	}
+}
+main();
+</script>
+</html>
