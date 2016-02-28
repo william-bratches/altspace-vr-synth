@@ -52,12 +52,24 @@ function initWaveForms() {
 	return waveForms;
 }
 
-function initWaveFormEvents(waveForms) {
+function createOctave() {
+	var sync = altspace.utilities.behaviors.Object3DSync()
+	var octaveKeys = new THREE.Group();
+	// var keys = {
+	// 	c: Modules.ShapeMaker.createWhiteKey(index)
+	// }
+}
 
+function initKeyboardWithSignal(signal) {
+
+}
+
+function initWaveFormEvents(waveForms) {
 
 	_.each(waveForms, function(waveForm, key) {
 		var signal = T(key);
 		waveForm.addEventListener('cursordown', function() {
+			initKeyboardWithSignal(signal)
 			signal.play();
 		});
 
@@ -66,6 +78,7 @@ function initWaveFormEvents(waveForms) {
 		})
 	});
 }
+
 
 function createSynth() {
 	var waveforms = initWaveForms();
