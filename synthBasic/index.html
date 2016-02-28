@@ -42,10 +42,10 @@ function initWaveForms() {
 	var waveFormTypeButtons = new THREE.Group();
 	var waveForms = {
 		sin: Modules.ShapeMaker.createCube(100, "#33CCFF"),
-		saw: Modules.ShapeMaker.createCube(100, "#D90909");
+		saw: Modules.ShapeMaker.createCube(100, "#D90909"),
 	}
 	waveForms.sin.addBehaviors(sync);
-	waveForms.saw.addBehaviors(sync, saw.translateY(200));
+	waveForms.saw.addBehaviors(sync, waveForms.saw.translateY(200));
 	waveFormTypeButtons.translateX(-400);
 	waveFormTypeButtons.add(waveForms.sin, waveForms.saw);
 	sim.scene.add(waveFormTypeButtons);
