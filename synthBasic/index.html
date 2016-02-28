@@ -52,21 +52,24 @@ function initWaveForms() {
 	return waveForms;
 }
 
-function waveFormEventHandler(waveForms) {
-	// events - need to abstract later
-	var t = T("sin");
-	sin.addEventListener('cursordown', function() {
-		t.play();
-	});
+function initWaveFormEvents(waveForms) {
 
-	sin.addEventListener('cursorup', function() {
-		t.pause();
+
+	_.each(waveForms, function(waveForm, key) {
+		var signal = T(key);
+		waveForm.addEventListener('cursordown', function() {
+			signal.play();
+		});
+
+		waveForm.addEventListener('cursorup', function() {
+			signal.pause();
+		})
 	});
 }
 
 function createSynth() {
 	var waveforms = initWaveForms();
-	waveFormEventHandler(waveforms);
+	initWaveFormEvents(waveforms);
 }
 
 // make it so u can instantiate arbitrary number of octaves
