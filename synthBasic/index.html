@@ -46,19 +46,29 @@ function initWaveForms() {
 	}
 	waveForms.sin.addBehaviors(sync);
 	waveForms.saw.addBehaviors(sync, waveForms.saw.translateY(200));
-	waveFormTypeButtons.translateX(-400);
 	waveFormTypeButtons.add(waveForms.sin, waveForms.saw);
+	waveFormTypeButtons.translateX(-400);
 	sim.scene.add(waveFormTypeButtons);
 	return waveForms;
 }
 
-function createOctave() {
+function createOctave(index) {
+	var index = index || 0;
 	var sync = altspace.utilities.behaviors.Object3DSync()
 	var octaveKeys = new THREE.Group();
-	// var keys = {
-	// 	c: Modules.ShapeMaker.createWhiteKey(index)
-	// }
+	var pianoKeys = {
+		c: Modules.ShapeMaker.createWhiteKey()
+	}
+
+	_.each(pianoKeys, function(whiteKey, note) {
+		octaveKeys.add(whiteKey);
+		sim.scene.add(whiteKey);
+	});
 }
+
+function createKeyboard(){
+	var octave = createOctave();
+};
 
 function initKeyboardWithSignal(signal) {
 
@@ -83,6 +93,8 @@ function initWaveFormEvents(waveForms) {
 function createSynth() {
 	var waveforms = initWaveForms();
 	initWaveFormEvents(waveforms);
+	var keyboard = createKeyboard();
+	return keyboard;
 }
 
 // make it so u can instantiate arbitrary number of octaves
