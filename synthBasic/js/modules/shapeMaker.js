@@ -15,7 +15,7 @@ Modules.ShapeMaker = (function() {
 
   function createWhiteKey(index) {
     var octaveIndex = index || 0;
-    var color = '#ffffff';
+    var color = '#E8E3CC';
     var geometry = new THREE.BoxGeometry(1, 1, 5);
     var material = new THREE.MeshBasicMaterial({color: color});
     var whiteKey = new THREE.Mesh(geometry, material);
