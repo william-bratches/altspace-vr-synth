@@ -77,19 +77,26 @@ function createOctave(index) {
 	}
 
 	var initWhiteKeyEvents= function(majors, signal) {
-		for (var i = 0; i < majors.length; i++) {
-			var key = majors[i];
-			key.addEventListener('cursordown', function() {
-				key.rotation.x += 0.04;
-				key.material.color.setHex(0xBA1A1A);
+		// pitch values corresponding to white key values. index 0 is F major
+		//ALTERNATE WAY:
+		// var fMajor = xxx
+		// signal = fmajor * index
+		var noteValues = ['2320']
 
+		var initCursorEvents = function(singleKey) {
+			singleKey.addEventListener('cursordown', function() {
+				singleKey.rotation.x += 0.04;
+				singleKey.material.color.setHex(0xBA1A1A);
 			});
 
-			key.addEventListener('cursorup', function() {
-				key.rotation.x -= 0.04;
-				key.material.color.setHex(0xffffff);
+			singleKey.addEventListener('cursorup', function() {
+				singleKey.rotation.x -= 0.04;
+				singleKey.material.color.setHex(0xE8E3CC);
+			});
+		}
 
-			})
+		for (var i = 0; i < majors.length; i++) {
+			initCursorEvents(majors[i]);
 		}
 	}
 
@@ -108,8 +115,8 @@ function createOctave(index) {
 
 	// TODO - create arbitrary number of octaves based on index parameter
 	var main = function() {
-		createBase(octave);
 		var majors = createWhiteKeys(octave);
+		createBase(octave);
 		createBlackKeys(octave);
 		initWhiteKeyEvents(majors);
 		sim.scene.add(octave)
