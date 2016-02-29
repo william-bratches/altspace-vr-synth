@@ -60,7 +60,7 @@ function createOctave(index) {
 
 	var createBase = function(octaveGroup) {
 		var base = Modules.ShapeMaker.createOctaveBase();
-		base.translateX(77);
+		base.translateX(66);
 		octaveGroup.add(base);
 	}
 
@@ -74,7 +74,7 @@ function createOctave(index) {
 	}
 
 	var createBlackKeys = function(octaveGroup) {
-		for (var i = 0; i <= 6; i++) {
+		for (var i = 0; i < 6; i++) {
 			// skip 3rd key between E and F white keys
 			if (i !== 3) {
 				var blackKey = Modules.ShapeMaker.createBlackKey(i);
