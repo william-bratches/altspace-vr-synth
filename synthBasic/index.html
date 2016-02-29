@@ -52,10 +52,10 @@ function initWaveForms() {
 	return waveForms;
 }
 
-function createOctave(index) {
+// TODO: simplify this. certain parts can be combined
+function createOctave(receivedSignal, index) {
 	var sync = altspace.utilities.behaviors.Object3DSync()
 	var index = index || 0;
-	var sync = altspace.utilities.behaviors.Object3DSync()
 	var octave = new THREE.Group();
 
 	var createBase = function(octaveGroup) {
@@ -77,26 +77,28 @@ function createOctave(index) {
 	}
 
 	var initWhiteKeyEvents= function(majors, signal) {
-		// pitch values corresponding to white key values. index 0 is F major
-		//ALTERNATE WAY:
-		// var fMajor = xxx
-		// signal = fmajor * index
-		var noteValues = ['2320'];
+		console.log('signal')
+		console.log(signal);
 
-		var initCursorEvents = function(singleKey) {
+		var initCursorEvents = function(singleKey, index, musicSignal) {
+			// pitch values corresponding to white key values. index 0 is F major
+			var noteValues = [174.61, 196, 220, 246.94, 261.63, 220, 246.94, 261.63];
+
 			singleKey.addEventListener('cursordown', function() {
 				singleKey.rotation.x += 0.04;
 				singleKey.material.color.setHex(0xBA1A1A);
+				musicSignal.set({ freq: noteValues[index]}).play();
 			});
 
 			singleKey.addEventListener('cursorup', function() {
 				singleKey.rotation.x -= 0.04;
 				singleKey.material.color.setHex(0xE8E3CC);
+				musicSignal.pause();
 			});
 		}
 
 		for (var i = 0; i < majors.length; i++) {
-			initCursorEvents(majors[i]);
+			initCursorEvents(majors[i], index, signal);
 		}
 	}
 
@@ -138,7 +140,7 @@ function createOctave(index) {
 		var majors = createWhiteKeys(octave);
 		var minors = createBlackKeys(octave);
 		createBase(octave);
-		initWhiteKeyEvents(majors);
+		initWhiteKeyEvents(majors, receivedSignal);
 		initBlackKeyEvents(minors);
 		sim.scene.add(octave)
 		octave.translateY(-220);
@@ -146,34 +148,27 @@ function createOctave(index) {
 	main();
 }
 
-function createKeyboard(){
-	var octave = createOctave();
+function createKeyboard(signal){
+	var octave = createOctave(signal);
 };
 
-function initKeyboardWithSignal(signal) {
-
-}
-
 function initWaveFormEvents(waveForms) {
+	var signal;
 
 	_.each(waveForms, function(waveForm, key) {
-		var signal = T(key);
 		waveForm.addEventListener('cursordown', function() {
-			initKeyboardWithSignal(signal)
-			signal.play();
+			signal = T(key);
+			var keyboard = createKeyboard(signal);
 		});
-
-		waveForm.addEventListener('cursorup', function() {
-			signal.pause();
-		})
 	});
+
+	return signal;
 }
 
 
 function createSynth() {
 	var waveforms = initWaveForms();
-	initWaveFormEvents(waveforms);
-	var keyboard = createKeyboard();
+	var signal = initWaveFormEvents(waveforms);
 }
 
 // make it so u can instantiate arbitrary number of octaves
