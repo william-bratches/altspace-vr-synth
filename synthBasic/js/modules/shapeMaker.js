@@ -22,7 +22,18 @@ Modules.ShapeMaker = (function() {
     whiteKey.scale.multiplyScalar(20);
     return whiteKey;
   }
+
+  function createOctaveBase() {
+    var color = '#000000';
+    var geometry = new THREE.BoxGeometry(9, 0.8, 6);
+    var material = new THREE.MeshBasicMaterial({color: color});
+    var octaveBase = new THREE.Mesh(geometry, material);
+    octaveBase.scale.multiplyScalar(20);
+    return octaveBase;
+  }
+
   return {
+    createOctaveBase: createOctaveBase,
     createWhiteKey: createWhiteKey,
     createCube: createCube,
   }

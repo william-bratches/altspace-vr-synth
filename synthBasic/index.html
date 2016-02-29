@@ -47,7 +47,6 @@ function initWaveForms() {
 	waveForms.sin.addBehaviors(sync);
 	waveForms.saw.addBehaviors(sync, waveForms.saw.translateY(200));
 	waveFormTypeButtons.add(waveForms.sin, waveForms.saw);
-	console.log(waveFormTypeButtons)
 	waveFormTypeButtons.translateX(-400);
 	sim.scene.add(waveFormTypeButtons);
 	return waveForms;
@@ -59,24 +58,29 @@ function createOctave(index) {
 	var sync = altspace.utilities.behaviors.Object3DSync()
 	var octave = new THREE.Group();
 
-	var createBase = function() {
-
+	var createBase = function(octaveGroup) {
+		var base = Modules.ShapeMaker.createOctaveBase();
+		base.translateX(77);
+		octaveGroup.add(base);
 	}
 
 	// create 7 white keys
-	var createWhiteKeys = function() {
+	var createWhiteKeys = function(octaveGroup) {
 		for (var i = 0; i <= 7; i++) {
 			var whiteKey = Modules.ShapeMaker.createWhiteKey(i);
 			whiteKey.addBehaviors(sync);
 			whiteKey.translateX(i * 22);
-			console.log(octave);
-			octave.add(whiteKey);
-			sim.scene.add(whiteKey);
+			octaveGroup.add(whiteKey);
 		}
 	}
 
-	createWhiteKeys(octave);
-	octave.translateY(-220);
+	var main = function() {
+		createBase(octave);
+		createWhiteKeys(octave);
+		sim.scene.add(octave)
+		octave.translateY(-220);
+	}
+	main();
 }
 
 function createKeyboard(){
