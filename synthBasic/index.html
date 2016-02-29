@@ -81,7 +81,7 @@ function createOctave(index) {
 		//ALTERNATE WAY:
 		// var fMajor = xxx
 		// signal = fmajor * index
-		var noteValues = ['2320']
+		var noteValues = ['2320'];
 
 		var initCursorEvents = function(singleKey) {
 			singleKey.addEventListener('cursordown', function() {
@@ -101,6 +101,7 @@ function createOctave(index) {
 	}
 
 	var createBlackKeys = function(octaveGroup) {
+		var minorKeys = [];
 		for (var i = 0; i < 6; i++) {
 			// skip 3rd key between E and F white keys
 			if (i !== 3) {
@@ -108,17 +109,37 @@ function createOctave(index) {
 				blackKey.addBehaviors(sync);
 				blackKey.translateX(i * 22);
 				octaveGroup.add(blackKey);
+				minorKeys.push(blackKey);
 			}
 		}
+		return minorKeys;
+	}
 
+	var initBlackKeyEvents = function(minors, signal) {
+		var initCursorEvents = function(singleKey) {
+			singleKey.addEventListener('cursordown', function() {
+				singleKey.rotation.x += 0.04;
+				singleKey.material.color.setHex(0xBA1A1A);
+			});
+
+			singleKey.addEventListener('cursorup', function() {
+				singleKey.rotation.x -= 0.04;
+				singleKey.material.color.setHex(0x000000);
+			});
+		}
+
+		for (var i = 0; i < minors.length; i++) {
+			initCursorEvents(minors[i]);
+		}
 	}
 
 	// TODO - create arbitrary number of octaves based on index parameter
 	var main = function() {
 		var majors = createWhiteKeys(octave);
+		var minors = createBlackKeys(octave);
 		createBase(octave);
-		createBlackKeys(octave);
 		initWhiteKeyEvents(majors);
+		initBlackKeyEvents(minors);
 		sim.scene.add(octave)
 		octave.translateY(-220);
 	}
