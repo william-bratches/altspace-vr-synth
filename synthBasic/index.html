@@ -77,16 +77,15 @@ function createOctave(receivedSignal, index) {
 	}
 
 	var initWhiteKeyEvents= function(majors, signal) {
-		console.log('signal')
-		console.log(signal);
 
 		var initCursorEvents = function(singleKey, index, musicSignal) {
 			// pitch values corresponding to white key values. index 0 is F major
-			var noteValues = [174.61, 196, 220, 246.94, 261.63, 220, 246.94, 261.63];
+			var noteValues = [174.61, 196, 220, 246.94, 261.63, 293.67, 329.63, 349.23];
 
 			singleKey.addEventListener('cursordown', function() {
 				singleKey.rotation.x += 0.04;
 				singleKey.material.color.setHex(0xBA1A1A);
+				console.log(noteValues[index]);
 				musicSignal.set({ freq: noteValues[index]}).play();
 			});
 
@@ -98,7 +97,7 @@ function createOctave(receivedSignal, index) {
 		}
 
 		for (var i = 0; i < majors.length; i++) {
-			initCursorEvents(majors[i], index, signal);
+			initCursorEvents(majors[i], i, signal);
 		}
 	}
 
