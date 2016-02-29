@@ -65,11 +65,31 @@ function createOctave(index) {
 	}
 
 	var createWhiteKeys = function(octaveGroup) {
+		var majorKeys = [];
 		for (var i = 0; i < 7; i++) {
 			var whiteKey = Modules.ShapeMaker.createWhiteKey(i);
 			whiteKey.addBehaviors(sync);
 			whiteKey.translateX(i * 22);
 			octaveGroup.add(whiteKey);
+			majorKeys.push(whiteKey);
+		}
+		return majorKeys;
+	}
+
+	var initWhiteKeyEvents= function(majors, signal) {
+		for (var i = 0; i < majors.length; i++) {
+			var key = majors[i];
+			key.addEventListener('cursordown', function() {
+				key.rotation.x += 0.04;
+				key.material.color.setHex(0xBA1A1A);
+
+			});
+
+			key.addEventListener('cursorup', function() {
+				key.rotation.x -= 0.04;
+				key.material.color.setHex(0xffffff);
+
+			})
 		}
 	}
 
@@ -89,8 +109,9 @@ function createOctave(index) {
 	// TODO - create arbitrary number of octaves based on index parameter
 	var main = function() {
 		createBase(octave);
-		createWhiteKeys(octave);
+		var majors = createWhiteKeys(octave);
 		createBlackKeys(octave);
+		initWhiteKeyEvents(majors);
 		sim.scene.add(octave)
 		octave.translateY(-220);
 	}

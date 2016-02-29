@@ -23,7 +23,7 @@ Modules.ShapeMaker = (function() {
   }
 
   function createOctaveBase() {
-    var color = '#000000';
+    var color = '#141414';
     var geometry = new THREE.BoxGeometry(8, 0.8, 6);
     var material = new THREE.MeshBasicMaterial({color: color});
     var octaveBase = new THREE.Mesh(geometry, material);
@@ -32,7 +32,7 @@ Modules.ShapeMaker = (function() {
   }
 
   function createBlackKey() {
-    var color = '#1B1C1C';
+    var color = '#000000';
     var geometry = new THREE.BoxGeometry(0.5, 1.5, 3);
     var material = new THREE.MeshPhongMaterial({color: color});
     var blackKey = new THREE.Mesh(geometry, material);
