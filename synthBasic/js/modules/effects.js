@@ -1,9 +1,12 @@
 Modules.Effects = (function(){
-  var signal = T('sin');
+  var currentSignal = T('sin');
   var octaveOffset = 2;
   var threeKeys = {};
 
   function getSignal() {
+    var signal = T("perc", {r:500}, currentSignal).on("ended", function() {
+      this.pause();
+    }).bang()
     return signal;
   }
 
