@@ -27,19 +27,10 @@ Modules.OctaveMaker = (function() {
 
       var blackKeysAlgo = function(index) {
         var render = true;
-        var currentRegister;
-        if (index < 8) {
-          currentRegister = index;
-        } else {
-          var currentRegister = Math.floor(index % 7)
-        }
-        if (currentRegister % 7 === 0) {
-          render = false;
-        } else if (currentRegister % 4 === 0) {
-          render = false;
-        }
-        return render;
+        var currentRegister = Math.floor(index % 7)
+        return (currentRegister % 7 !==0) && (currentRegister % 4 !== 0);
       }
+      
   		for (var i = 1; i <= (7 * amount); i++) {
   			// skip 3rd key between E and F white keys
   			if (blackKeysAlgo(i)) {
