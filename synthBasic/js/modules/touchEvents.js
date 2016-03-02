@@ -22,6 +22,13 @@ Modules.TouchEvents = (function() {
         var musicSignal = Modules.Effects.getSignal();
         musicSignal.pause();
       });
+
+      singleKey.addEventListener('cursorleave', function() {
+        singleKey.rotation.x = 0;
+        singleKey.material.color.setHex(color);
+        var musicSignal = Modules.Effects.getSignal();
+        musicSignal.pause();
+      });
     }
 
     for (var i = 0; i < keyList.length; i++) {
