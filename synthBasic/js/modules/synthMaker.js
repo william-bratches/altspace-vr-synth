@@ -10,6 +10,8 @@ Modules.SynthMaker = (function() {
   function createSynth() {
     var keys =  createKeyboard();
   	Modules.Effects.init(keys);
+    var control = Modules.ShapeMaker.createControlSlider();
+    sim.scene.add(control)
   }
 
   return {
