@@ -10,14 +10,10 @@ Modules.SynthMaker = (function() {
   function createSynth() {
     var keys =  createKeyboard();
   	Modules.Effects.init(keys);
-    var control = Modules.ShapeMaker.createControlSlider();
-    var controller = new THREE.Group();
-    control.slider.addBehaviors(
-      alt.Object3DSync(),
-      alt.Drag()
-    );
+    // var controller = new THREE.Group();
+
     // controller.add(control.slider, control.backing);
-    sim.scene.add(control.slider)
+
   }
 
   return {
