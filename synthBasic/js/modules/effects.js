@@ -1,4 +1,16 @@
 Modules.Effects = (function(){
+  var signal = T('sin');
+  var threeKeys = {};
+
+  function getSignal() {
+    return signal;
+  }
+
+  function setSignal(type) {
+      signal = T(type);
+      Modules.TouchEvents.initTouchEvents(signal, threeKeys);
+  }
+
   function initWaveForms() {
   	var sync = altspace.utilities.behaviors.Object3DSync()
   	var waveFormTypeButtons = new THREE.Group();
@@ -15,19 +27,22 @@ Modules.Effects = (function(){
   }
 
   function initWaveFormEvents(waveForms) {
-  	var signal;
-
   	_.each(waveForms, function(waveForm, key) {
   		waveForm.addEventListener('cursordown', function() {
-  			signal = T(key);
-  			var keyboard = createKeyboard(signal);
+        setSignal(key);
   		});
   	});
+  }
 
-  	return signal;
+  function init(keys) {
+    var waveforms = initWaveForms();
+    initWaveFormEvents(waveforms);
+    _.extend(threeKeys, keys);
+    Modules.TouchEvents.initTouchEvents(signal, threeKeys)
   }
 
   return {
-    initWaveForms: initWaveForms,
+    init: init,
+    getSignal: getSignal
   }
 })();

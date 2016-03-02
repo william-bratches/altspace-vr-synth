@@ -1,6 +1,6 @@
 Modules.Data = (function() {
 
-  function getNotesMatrix() {
+  function getMajorNotesMatrix() {
     // starts at F for each octave
     var matrix = [
       [43.654, 48.999, 55, 61.735, 65.406,73.416, 82.407],
@@ -13,7 +13,20 @@ Modules.Data = (function() {
     return matrix;
   }
 
+  function getMinorNotesMatrix() {
+    var matrix = [
+      [46.249, 51.913, 58.270, 69.296, 77.782],
+      [92.499, 103.83, 116.54, 138.59, 155.56],
+      [185, 207.65, 233.08, 277.18, 311.13],
+      [369.99, 415.30, 466.16, 554.37, 622.25],
+      [739.99, 830.61, 932.33, 1108.7, 1244.5],
+      [1480, 1661.2, 1864.7, 2217.5, 2489.0]
+    ]
+    return matrix;
+  }
+
   return {
-    getNotesMatrix: getNotesMatrix,
+    getMajorNotesMatrix: getMajorNotesMatrix,
+    getMinorNotesMatrix: getMinorNotesMatrix,
   }
 })();
