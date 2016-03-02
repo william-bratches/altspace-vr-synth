@@ -5,12 +5,7 @@ Modules.Effects = (function(){
   function getSignal() {
     return signal;
   }
-
-  function setSignal(type) {
-      signal = T(type);
-      Modules.TouchEvents.init(signal, threeKeys);
-  }
-
+  
   function initWaveForms() {
   	var sync = altspace.utilities.behaviors.Object3DSync()
   	var waveFormTypeButtons = new THREE.Group();
@@ -29,7 +24,7 @@ Modules.Effects = (function(){
   function initWaveFormEvents(waveForms) {
   	_.each(waveForms, function(waveForm, key) {
   		waveForm.addEventListener('cursordown', function() {
-        setSignal(key);
+        signal = T(type);
   		});
   	});
   }
@@ -38,8 +33,7 @@ Modules.Effects = (function(){
     var waveforms = initWaveForms();
     initWaveFormEvents(waveforms);
     _.extend(threeKeys, keys);
-    console.log(threeKeys)
-    Modules.TouchEvents.init(signal, threeKeys)
+    Modules.TouchEvents.init(threeKeys)
   }
 
   return {

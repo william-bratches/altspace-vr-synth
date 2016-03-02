@@ -25,8 +25,11 @@ Modules.Data = (function() {
     return matrix;
   }
 
+  function getNotesMatrix() {
+    return {majors: getMajorNotesMatrix(), minors: getMinorNotesMatrix()};
+  }
+
   return {
-    getMajorNotesMatrix: getMajorNotesMatrix,
-    getMinorNotesMatrix: getMinorNotesMatrix,
+    getNotesMatrix: getNotesMatrix,
   }
 })();

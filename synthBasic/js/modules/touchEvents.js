@@ -1,68 +1,36 @@
 Modules.TouchEvents = (function() {
 
-  function initWhiteKeyEvents(majors, signal) {
-    var noteValues = Modules.Data.getMajorNotesMatrix();
-
-    var initCursorEvents = function(singleKey, index, musicSignal) {
+  function initKeyEvents(keyList, keyType) {
+    var noteValues = Modules.Data.getNotesMatrix()[keyType];
+    var color = (keyType === 'majors') ? 0xE8E3CC:0x000000;
+    var octaveAmount = (keyType === 'majors') ? 7:5;
+    var initCursorEvents = function(singleKey, index) {
       var octave = Math.floor(index / 7);
-      var octaveIndex = index % 7;
+      var octaveIndex = index % octaveAmount;
       singleKey.addEventListener('cursordown', function() {
         singleKey.rotation.x += 0.04;
         singleKey.material.color.setHex(0xBA1A1A);
+        var musicSignal = Modules.Effects.getSignal();
         musicSignal.set({ freq: noteValues[octave][octaveIndex]}).play();
       });
 
       singleKey.addEventListener('cursorup', function() {
         singleKey.rotation.x -= 0.04;
-        singleKey.material.color.setHex(0xE8E3CC);
+        singleKey.material.color.setHex(color);
+        var musicSignal = Modules.Effects.getSignal();
         musicSignal.pause();
       });
     }
 
-    for (var i = 0; i < majors.length; i++) {
-      initCursorEvents(majors[i], i, signal);
+    for (var i = 0; i < keyList.length; i++) {
+      initCursorEvents(key[i], i, signal);
     }
   }
 
-  function initBlackKeyEvents(minors, signal) {
-    var noteValues = Modules.Data.getMinorNotesMatrix();
-
-    var initCursorEvents = function(singleKey, index, musicSignal) {
-      var octave = Math.floor(index / 7);
-      var octaveIndex = index % 5;
-      singleKey.addEventListener('cursordown', function() {
-        singleKey.rotation.x += 0.04;
-        singleKey.material.color.setHex(0xBA1A1A);
-        musicSignal.set({ freq: noteValues[octave][octaveIndex]}).play();
-      });
-
-      singleKey.addEventListener('cursorup', function() {
-        singleKey.rotation.x -= 0.04;
-        singleKey.material.color.setHex(0xffffff);
-        musicSignal.pause();
-      });
-    }
-
-    for (var i = 0; i < minors.length; i++) {
-      initCursorEvents(minors[i], i, signal);
-    }
-  }
-
-  function clearEvents(threeKeys) {
-    var clear = function(keys) {
-      _.each(keys, function(key) {
-        key.removeEventListener('cursordown');
-        key.removeEventListener('cursorup')
-      });
-    }
-    clear(threeKeys.major);
-    clear(threeKeys.minor);
-  }
-
-  function init(signal, threeKeys) {
+  function init(threeKeys) {
     clearEvents(threeKeys);
-    initWhiteKeyEvents(threeKeys.majors, signal);
-    initWhiteKeyEvents(threeKeys.minors, signal);
+    initKeyEvents(threeKeys.majors, 'majors');
+    initKeyEvents(threeKeys.minors, 'minors');
   }
 
   return {
