@@ -8,7 +8,7 @@ Modules.Effects = (function(){
 
   function setSignal(type) {
       signal = T(type);
-      Modules.TouchEvents.initTouchEvents(signal, threeKeys);
+      Modules.TouchEvents.init(signal, threeKeys);
   }
 
   function initWaveForms() {
@@ -38,7 +38,8 @@ Modules.Effects = (function(){
     var waveforms = initWaveForms();
     initWaveFormEvents(waveforms);
     _.extend(threeKeys, keys);
-    Modules.TouchEvents.initTouchEvents(signal, threeKeys)
+    console.log(threeKeys)
+    Modules.TouchEvents.init(signal, threeKeys)
   }
 
   return {

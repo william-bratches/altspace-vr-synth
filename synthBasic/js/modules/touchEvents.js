@@ -1,4 +1,4 @@
-Modules.touchEvents = (function() {
+Modules.TouchEvents = (function() {
 
   function initWhiteKeyEvents(majors, signal) {
     var noteMatrix = Modules.Data.getMajorNotesMatrix();
@@ -46,19 +46,21 @@ Modules.touchEvents = (function() {
     }
   }
 
-  function clearEvents() {
+  function clearEvents(threeKeys) {
     var clear = function(keys) {
       _.each(keys, function(key) {
         key.removeEventListener('cursordown');
         key.removeEventListener('cursorup')
       });
     }
+    clear(threeKeys.major);
+    clear(threeKeys.minor);
   }
 
   function init(signal, threeKeys) {
-    clearEvents();
-    initWhiteKeyEvents(threeKeys.major, signal);
-    initWhiteKeyEvents(threeKeys.minor, signal);
+    clearEvents(threeKeys);
+    initWhiteKeyEvents(threeKeys.majors, signal);
+    initWhiteKeyEvents(threeKeys.minors, signal);
   }
 
   return {
