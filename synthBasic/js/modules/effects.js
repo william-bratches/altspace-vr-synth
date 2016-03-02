@@ -2,12 +2,10 @@ Modules.Effects = (function(){
   var currentSignal = T('sin');
   var octaveOffset = 2;
   var threeKeys = {};
+  var release = 500;
 
   function getSignal() {
-    var signal = T("perc", {r:500}, currentSignal).on("ended", function() {
-      this.pause();
-    }).bang()
-    return signal;
+    return currentSignal;
   }
 
   // will later be able to arbitrarily determine octave
@@ -33,7 +31,7 @@ Modules.Effects = (function(){
   function initWaveFormEvents(waveForms) {
   	_.each(waveForms, function(waveForm, key) {
   		waveForm.addEventListener('cursordown', function() {
-        signal = T(key);
+        currentSignal = T(key);
   		});
   	});
   }
