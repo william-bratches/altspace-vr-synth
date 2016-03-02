@@ -1,4 +1,6 @@
 Modules.SynthMaker = (function() {
+  (function(){var a = window.altspace; (function insert(ss, t){for(var i in ss) {for (var j in ss[i]) {t[j] = ss[i][j];}};})([a, a.utilities,a.utilities.behaviors, a.utilities.shims], window.alt = {})})();
+
   function createKeyboard() {
     return Modules.OctaveMaker.createOctaveShape(3);
   };
@@ -10,9 +12,14 @@ Modules.SynthMaker = (function() {
   function createSynth() {
     var keys =  createKeyboard();
   	Modules.Effects.init(keys);
-    // var controller = new THREE.Group();
+    var cube = Modules.ShapeMaker.createCube(100);
+  	cube.addBehaviors(
+  		alt.Object3DSync(),
+  		alt.Drag({x: {min: -30, max: 30}, y: true})
+  	);
 
-    // controller.add(control.slider, control.backing);
+  	sim.scene.add(cube);
+  	return cube;
 
   }
 
