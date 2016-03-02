@@ -1,11 +1,17 @@
 Modules.Effects = (function(){
   var signal = T('sin');
+  var octaveOffset = 2;
   var threeKeys = {};
 
   function getSignal() {
     return signal;
   }
-  
+
+  // will later be able to arbitrarily determine octave
+  function getOctaveOffset() {
+    return octaveOffset;
+  }
+
   function initWaveForms() {
   	var sync = altspace.utilities.behaviors.Object3DSync()
   	var waveFormTypeButtons = new THREE.Group();
@@ -24,7 +30,7 @@ Modules.Effects = (function(){
   function initWaveFormEvents(waveForms) {
   	_.each(waveForms, function(waveForm, key) {
   		waveForm.addEventListener('cursordown', function() {
-        signal = T(type);
+        signal = T(key);
   		});
   	});
   }
@@ -38,6 +44,7 @@ Modules.Effects = (function(){
 
   return {
     init: init,
-    getSignal: getSignal
+    getSignal: getSignal,
+    getOctaveOffset: getOctaveOffset,
   }
 })();
