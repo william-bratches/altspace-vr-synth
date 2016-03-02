@@ -45,7 +45,7 @@ Modules.ShapeMaker = (function() {
 
   function createBacking(color) {
     var color = color || '#4A4A4A';
-    var geometry = new THREE.BoxGeometry(1, 20, 1);
+    var geometry = new THREE.BoxGeometry(6, 1, 1);
     var material = new THREE.MeshPhongMaterial({color: color});
     var backing = new THREE.Mesh(geometry, material);
     backing.scale.multiplyScalar(20);
@@ -57,7 +57,7 @@ Modules.ShapeMaker = (function() {
     var cube = createCube(40, color);
     cube.addBehaviors(
   		alt.Object3DSync(),
-  		alt.Drag({x: {min: -30, max: 30}, y: true})
+  		alt.Drag({x: {min: -50, max: 50}, y: true})
   	);
     return cube;
   }
