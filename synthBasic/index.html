@@ -20,27 +20,29 @@
 <body>
 </body>
 <script>
+(function(){var a = window.altspace; (function insert(ss, t){for(var i in ss) {for (var j in ss[i]) {t[j] = ss[i][j];}};})([a, a.utilities,a.utilities.behaviors, a.utilities.shims], window.alt = {})})();
+
 var sceneSync;
 var sim = altspace.utilities.Simulation();
-var config = {
-	authorId: 'AltspaceVR',
-	appId: 'SpinningCube'
-};
+var config = alt.sync.getInstance({
+	authorId: 'mo1ok',
+	appId: 'SynthBasic'
+});
+
 
 function connectAltSpace() {
-	altspace.utilities.sync.connect(config).then(
-		function(connection) {
-		  sceneSync = altspace.utilities.behaviors.SceneSync(connection.instance,
-		    {
-		      instantiators: {'createSynth': Modules.SynthMaker.createSynth },
-		      ready: ready
-		    });
-		  sim.scene.addBehavior(sceneSync);
-	});
+	var sync = alt.SceneSync(config,
+		{
+			instantiators: {'createSynth': Modules.SynthMaker.createSynth },
+			ready: ready
+		});
+	sceneSync = sync;
+	return sync;
 }
 
 function main() {
-	connectAltSpace();
+	var sync = connectAltSpace();
+	sim.scene.addBehavior(sync);
 }
 
 // make it so u can instantiate arbitrary number of octaves

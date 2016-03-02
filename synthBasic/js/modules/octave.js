@@ -30,7 +30,7 @@ Modules.OctaveMaker = (function() {
         var currentRegister = Math.floor(index % 7)
         return (currentRegister % 7 !==0) && (currentRegister % 4 !== 0);
       }
-      
+
   		for (var i = 1; i <= (7 * amount); i++) {
   			// skip 3rd key between E and F white keys
   			if (blackKeysAlgo(i)) {
