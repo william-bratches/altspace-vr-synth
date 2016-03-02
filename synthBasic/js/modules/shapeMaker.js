@@ -1,4 +1,5 @@
 Modules.ShapeMaker = (function() {
+  (function(){var a = window.altspace; (function insert(ss, t){for(var i in ss) {for (var j in ss[i]) {t[j] = ss[i][j];}};})([a, a.utilities,a.utilities.behaviors, a.utilities.shims], window.alt = {})})();
   var materialCreator = new THREE.MTLLoader.MaterialCreator();
   materialCreator.crossOrigin = 'anonymous';
 
@@ -42,19 +43,24 @@ Modules.ShapeMaker = (function() {
     return blackKey;
   }
 
+  function createBacking(color) {
+    var color = color || '#4A4A4A';
+    var geometry = new THREE.BoxGeometry(1, 20, 1);
+    var material = new THREE.MeshPhongMaterial({color: color});
+    var backing = new THREE.Mesh(geometry, material);
+    backing.scale.multiplyScalar(20);
+    return backing;
+  }
+
   function createControlSlider(color) {
     var color = color || '#DADFE0';
     var cube = createCube(40, color);
-    var createBacking = function() {
-      var color = '#4A4A4A';
-      var geometry = new THREE.BoxGeometry(1, 20, 1);
-      var material = new THREE.MeshPhongMaterial({color: color});
-      var backing = new THREE.Mesh(geometry, material);
-      backing.scale.multiplyScalar(20);
-      return backing;
-    }
     var backing = createBacking();
-    return {slider: cube, backing: backing};
+    cube.addBehaviors(
+  		alt.Object3DSync(),
+  		alt.Drag({x: {min: -30, max: 30}, y: true})
+  	);
+    return cube;
   }
 
   return {

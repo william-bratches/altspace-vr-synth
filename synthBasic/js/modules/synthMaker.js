@@ -12,7 +12,7 @@ Modules.SynthMaker = (function() {
   function createSynth() {
     var keys =  createKeyboard();
   	Modules.Effects.init(keys);
-    var cube = Modules.ShapeMaker.createCube(100);
+    var cube = Modules.ShapeMaker.createControlSlider();
   	cube.addBehaviors(
   		alt.Object3DSync(),
   		alt.Drag({x: {min: -30, max: 30}, y: true})
