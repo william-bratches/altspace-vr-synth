@@ -11,14 +11,13 @@ Modules.SynthMaker = (function() {
 
   function createSynth() {
     var keys =  createKeyboard();
-  	Modules.Effects.init(keys);
     var cube = Modules.ShapeMaker.createControlSlider();
-  	cube.addBehaviors(
-  		alt.Object3DSync(),
-  		alt.Drag({x: {min: -30, max: 30}, y: true})
-  	);
-
-  	sim.scene.add(cube);
+    var backing = Modules.ShapeMaker.createBacking();
+    var controller = new THREE.Group();
+    controller.add(cube, backing);
+    controller.translateZ(-100);
+  	Modules.Effects.init(keys);
+  	sim.scene.add(controller);
   	return cube;
 
   }

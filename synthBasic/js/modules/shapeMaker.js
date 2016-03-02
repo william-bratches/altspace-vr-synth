@@ -55,7 +55,6 @@ Modules.ShapeMaker = (function() {
   function createControlSlider(color) {
     var color = color || '#DADFE0';
     var cube = createCube(40, color);
-    var backing = createBacking();
     cube.addBehaviors(
   		alt.Object3DSync(),
   		alt.Drag({x: {min: -30, max: 30}, y: true})
@@ -64,6 +63,7 @@ Modules.ShapeMaker = (function() {
   }
 
   return {
+    createBacking: createBacking,
     createControlSlider: createControlSlider,
     createBlackKey: createBlackKey,
     createOctaveBase: createOctaveBase,
