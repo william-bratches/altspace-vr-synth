@@ -1,6 +1,6 @@
 Modules.Data = (function() {
 
-  function notesMatrix() {
+  function getNotesMatrix() {
     // starts at F for each octave
     var matrix = [
       [43.654, 48.999, 55, 61.735, 65.406,73.416, 82.407],
@@ -14,6 +14,6 @@ Modules.Data = (function() {
   }
 
   return {
-    notesMatrix: notesMatrix;
+    getNotesMatrix: getNotesMatrix,
   }
 })();

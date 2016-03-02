@@ -22,9 +22,9 @@ Modules.ShapeMaker = (function() {
     return whiteKey;
   }
 
-  function createOctaveBase() {
+  function createOctaveBase(widthMultiplier) {
     var color = '#141414';
-    var geometry = new THREE.BoxGeometry(8, 0.8, 6);
+    var geometry = new THREE.BoxGeometry(7.8 * widthMultiplier, 0.8, 6);
     var material = new THREE.MeshBasicMaterial({color: color});
     var octaveBase = new THREE.Mesh(geometry, material);
     octaveBase.scale.multiplyScalar(20);

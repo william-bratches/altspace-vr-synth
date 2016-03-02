@@ -8,13 +8,13 @@
 <script src="../dist/altspace.min.js"></script>
 <script src="../dist/timbre.js"></script>
 <script src="http://sdk.altvr.com/libs/three.js/r73/examples/js/loaders/MTLLoader.js"></script>
-<script src="js/modules/init.js"></script>
+<script src="js/modules/_init.js"></script>
 <script src="js/modules/data.js"></script>
-
 <script src="js/modules/shapeMaker.js"></script>
 <script src="js/modules/synthMaker.js"></script>
 <script src="js/modules/touchEvents.js"></script>
 <script src="js/modules/octave.js"></script>
+<script src="js/modules/effects.js"></script>
 
 </head>
 <body>
@@ -32,7 +32,7 @@ function connectAltSpace() {
 		function(connection) {
 		  sceneSync = altspace.utilities.behaviors.SceneSync(connection.instance,
 		    {
-		      instantiators: {'createSynth': createSynth },
+		      instantiators: {'createSynth': Modules.SynthMaker.createSynth },
 		      ready: ready
 		    });
 		  sim.scene.addBehavior(sceneSync);
@@ -41,40 +41,6 @@ function connectAltSpace() {
 
 function main() {
 	connectAltSpace();
-}
-
-function initWaveForms() {
-	var sync = altspace.utilities.behaviors.Object3DSync()
-	var waveFormTypeButtons = new THREE.Group();
-	var waveForms = {
-		sin: Modules.ShapeMaker.createCube(100, "#33CCFF"),
-		saw: Modules.ShapeMaker.createCube(100, "#D90909"),
-	}
-	waveForms.sin.addBehaviors(sync);
-	waveForms.saw.addBehaviors(sync, waveForms.saw.translateY(200));
-	waveFormTypeButtons.add(waveForms.sin, waveForms.saw);
-	waveFormTypeButtons.translateX(-400);
-	sim.scene.add(waveFormTypeButtons);
-	return waveForms;
-}
-
-
-
-function createKeyboard(signal){
-	var octave = createOctave(signal);
-};
-
-function initWaveFormEvents(waveForms) {
-	var signal;
-
-	_.each(waveForms, function(waveForm, key) {
-		waveForm.addEventListener('cursordown', function() {
-			signal = T(key);
-			var keyboard = createKeyboard(signal);
-		});
-	});
-
-	return signal;
 }
 
 // make it so u can instantiate arbitrary number of octaves
