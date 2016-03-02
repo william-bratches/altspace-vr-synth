@@ -1,11 +1,11 @@
 Modules.TouchEvents = (function() {
 
   function initWhiteKeyEvents(majors, signal) {
-    var noteMatrix = Modules.Data.getMajorNotesMatrix();
+    var noteValues = Modules.Data.getMajorNotesMatrix();
 
     var initCursorEvents = function(singleKey, index, musicSignal) {
       var octave = Math.floor(index / 7);
-      var octaveKey = index % 7;
+      var octaveIndex = index % 7;
       singleKey.addEventListener('cursordown', function() {
         singleKey.rotation.x += 0.04;
         singleKey.material.color.setHex(0xBA1A1A);
@@ -25,9 +25,11 @@ Modules.TouchEvents = (function() {
   }
 
   function initBlackKeyEvents(minors, signal) {
-    var octave = Math.floor(index / 7);
-    var octaveKey = index % 5;
+    var noteValues = Modules.Data.getMinorNotesMatrix();
+
     var initCursorEvents = function(singleKey, index, musicSignal) {
+      var octave = Math.floor(index / 7);
+      var octaveIndex = index % 5;
       singleKey.addEventListener('cursordown', function() {
         singleKey.rotation.x += 0.04;
         singleKey.material.color.setHex(0xBA1A1A);
@@ -36,7 +38,7 @@ Modules.TouchEvents = (function() {
 
       singleKey.addEventListener('cursorup', function() {
         singleKey.rotation.x -= 0.04;
-        singleKey.material.color.setHex(0x000000);
+        singleKey.material.color.setHex(0xffffff);
         musicSignal.pause();
       });
     }
