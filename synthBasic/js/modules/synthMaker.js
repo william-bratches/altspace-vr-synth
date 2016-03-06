@@ -9,12 +9,12 @@ Modules.SynthMaker = (function() {
     signal = T(type);
   };
 
-  function createSlider(zIndex) {
+  function createSlider(xIndex, color) {
     var controller = new THREE.Group();
-    var cube = Modules.ShapeMaker.createControlSlider();
+    var cube = Modules.ShapeMaker.createControlSlider(color);
     var backing = Modules.ShapeMaker.createBacking();
     controller.add(cube, backing);
-    controller.translateZ(zIndex);
+    controller.translateX(xIndex);
     sim.scene.add(controller);
 
     // return the part relevant for event handlers.
@@ -23,9 +23,15 @@ Modules.SynthMaker = (function() {
 
   function createSynth() {
     var keys =  createKeyboard();
-    var attack = createSlider(-100);
+    var attack = createSlider(-200);
+    var decay = createSlider(0);
+    var sustain = createSlider(200);
+    var release = createSlider(400);
     var effectSliders = {
       setAttack: attack,
+      setDecay: decay,
+      setSustain: sustain,
+      setRelease: release,
     }
   	Modules.Effects.init(keys, effectSliders);
   	return attack;
