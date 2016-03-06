@@ -28,9 +28,7 @@ Modules.Effects = (function(){
       var amount = val * 100;
       asdr.values.r = amount;
     },
-
   }
-
 
   // will later be able to arbitrarily determine octave
   function getOctaveOffset() {
