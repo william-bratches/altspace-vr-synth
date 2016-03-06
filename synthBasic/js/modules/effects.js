@@ -4,6 +4,7 @@ Modules.Effects = (function(){
   var threeKeys = {};
   var asdrPlay;
   var release = 500;
+
   // attack decay sustain release
   var asdr = {
     values: {
@@ -85,11 +86,11 @@ Modules.Effects = (function(){
   	});
   }
 
-  function init(keys, controlSlider) {
+  function init(keys, effects) {
     var waveforms = initWaveForms();
     initWaveFormEvents(waveforms);
     _.extend(threeKeys, keys);
-    Modules.TouchEvents.init(threeKeys, controlSlider)
+    Modules.TouchEvents.init(threeKeys, effects)
   }
 
   return {

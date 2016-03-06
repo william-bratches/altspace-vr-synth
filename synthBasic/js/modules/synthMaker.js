@@ -23,9 +23,12 @@ Modules.SynthMaker = (function() {
 
   function createSynth() {
     var keys =  createKeyboard();
-    var cube = createSlider(-100);
-  	Modules.Effects.init(keys, cube);
-  	return cube;
+    var attack = createSlider(-100);
+    var effectSliders = {
+      setAttack: attack,
+    }
+  	Modules.Effects.init(keys, effectSliders);
+  	return attack;
   }
 
   return {

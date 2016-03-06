@@ -44,10 +44,12 @@ Modules.TouchEvents = (function() {
     });
   }
 
-  function init(threeKeys, slider) {
+  function init(threeKeys, effects) {
     initKeyEvents(threeKeys.majors, 'majors');
     initKeyEvents(threeKeys.minors, 'minors');
-    initSlider(slider, 'setAttack');
+    _.each(effects, function(value, key) {
+      initSlider(value, key);
+    })
   }
 
   return {
