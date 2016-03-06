@@ -17,6 +17,8 @@ Modules.TouchEvents = (function() {
       });
 
       singleKey.addEventListener('cursorup', function() {
+        Modules.Effects.setPhaser();
+
         singleKey.rotation.x -= 0.04;
         singleKey.material.color.setHex(color);
         var musicSignal = Modules.Effects.getSignal();
