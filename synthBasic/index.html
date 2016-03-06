@@ -45,19 +45,17 @@ function connectAltSpace() {
 function main() {
 	connectAltSpace();
 }
-// make it so u can instantiate arbitrary number of octaves
 function ready(firstInstance) {
 	if (firstInstance) {
 		sceneSync.instantiate('createSynth');
-	}
-	var sliders = Modules.SynthMaker.getEffectSliders();
-	_.each(sliders) {
-		//initSlider(value, key);
-
-		sceneSync.instantiate('createslider')
+		var sliders = Modules.SynthMaker.getEffectSliders();
+		for (var i = 0; i < sliders.length; i++) {
+			sceneSync.instantiate('createslider', i * 200, sliders[i]);
+		}
 	}
 
-	// FORLOOP INSIDE HERE
+
+
 }
 main();
 </script>

@@ -86,6 +86,9 @@ Modules.Effects = (function(){
   	});
   }
 
+  // this is a bit messy - partially initialized here, partially initialzed in
+  // touchEvents
+  // need to clarify what the initialization flow is
   function init(keys, effects) {
     var waveforms = initWaveForms();
     initWaveFormEvents(waveforms);

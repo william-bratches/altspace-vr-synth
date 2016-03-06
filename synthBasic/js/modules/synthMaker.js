@@ -1,16 +1,7 @@
 Modules.SynthMaker = (function() {
   (function(){var a = window.altspace; (function insert(ss, t){for(var i in ss) {for (var j in ss[i]) {t[j] = ss[i][j];}};})([a, a.utilities,a.utilities.behaviors, a.utilities.shims], window.alt = {})})();
 
-  var attack = createSlider(0);
-  var decay = createSlider(200);
-  var sustain = createSlider(400);
-  var release = createSlider(600);
-  var effectSliders = {
-    setAttack: attack,
-    setDecay: decay,
-    setSustain: sustain,
-    setRelease: release,
-  }
+  var effectSliders = ['setAttack', 'setDecay', 'setSustain', 'setRelease'];
 
   function getEffectSliders() {
     return effectSliders;
@@ -24,13 +15,14 @@ Modules.SynthMaker = (function() {
     signal = T(type);
   };
 
-  function createSlider(xIndex, color) {
+  function createSlider(xIndex, effect, color) {
     var controller = new THREE.Group();
     var cube = Modules.ShapeMaker.createControlSlider(color);
     var backing = Modules.ShapeMaker.createBacking();
     controller.add(cube, backing);
     controller.translateX(xIndex);
     sim.scene.add(controller);
+    Modules.touchEvents.initSlider(cube, effect);
 
     // return the part relevant for event handlers.
     return cube;
@@ -39,7 +31,7 @@ Modules.SynthMaker = (function() {
   function createSynth() {
     var keys =  createKeyboard();
   	Modules.Effects.init(keys);
-  	return attack;
+  	return keys;
   }
 
   return {
