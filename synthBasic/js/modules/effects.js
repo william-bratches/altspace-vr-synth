@@ -13,15 +13,10 @@ Modules.Effects = (function(){
     return octaveOffset;
   }
 
-  function setPhaser(val) {
-    currentSignal = T("eq", {params:{lf:[800, 0.5, -2], mf:[6400, 0.5, 4]}}, currentSignal);
-    currentSignal = T("phaser", {freq:880, Q:2, steps:4}, currentSignal);
-    currentSignal = T("delay", {time:"BPM60 L16", fb:0.65, mix:0.25}, currentSignal);
 
-  }
 
   function setMul(val) {
-    currentSignal.mul = val;
+    currentSignal.mul = val / 10;
   }
 
   function initWaveForms() {
@@ -51,8 +46,7 @@ Modules.Effects = (function(){
     var waveforms = initWaveForms();
     initWaveFormEvents(waveforms);
     _.extend(threeKeys, keys);
-    Modules.TouchEvents.init(threeKeys)
-    Modules.TouchEvents.initPhaser(controlSlider);
+    Modules.TouchEvents.init(threeKeys, controlSlider)
   }
 
   return {
@@ -60,6 +54,5 @@ Modules.Effects = (function(){
     getSignal: getSignal,
     getOctaveOffset: getOctaveOffset,
     setMul: setMul,
-    setPhaser: setPhaser,
   }
 })();

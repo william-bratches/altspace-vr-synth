@@ -16,11 +16,9 @@ Modules.SynthMaker = (function() {
     var controller = new THREE.Group();
     controller.add(cube, backing);
     controller.translateZ(-100);
-    sim.scene.add(controller);
-    // Modules.Effects.initController(cube);
-  	Modules.Effects.init(keys);
+  	Modules.Effects.init(keys, cube);
+  	sim.scene.add(controller);
   	return cube;
-
   }
 
   return {

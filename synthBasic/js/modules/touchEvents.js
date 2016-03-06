@@ -17,8 +17,6 @@ Modules.TouchEvents = (function() {
       });
 
       singleKey.addEventListener('cursorup', function() {
-        Modules.Effects.setPhaser();
-
         singleKey.rotation.x -= 0.04;
         singleKey.material.color.setHex(color);
         var musicSignal = Modules.Effects.getSignal();
@@ -38,9 +36,20 @@ Modules.TouchEvents = (function() {
     }
   }
 
-  function init(threeKeys) {
+  function initSlider(threeCube, effect) {
+    threeCube.addEventListener('cursorup', function() {
+      Modules.Effects.setMul(threeCube.position.x);
+    });
+
+    threeCube.addEventListener('cursorleave', function() {
+      Modules.Effects.setMul(threeCube.position.x);
+    });
+  }
+
+  function init(threeKeys, slider) {
     initKeyEvents(threeKeys.majors, 'majors');
     initKeyEvents(threeKeys.minors, 'minors');
+    initSlider(slider);
   }
 
   return {
