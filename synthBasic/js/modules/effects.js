@@ -4,6 +4,7 @@ Modules.Effects = (function(){
   var threeKeys = {};
   var asdrPlay;
   var release = 500;
+  // attack decay sustain release
   var asdr = {
     values: {
       a: 1,
@@ -15,6 +16,19 @@ Modules.Effects = (function(){
       var amount = val * 100;
       asdr.values.a = amount;
     },
+    setDecay: function (val) {
+      var amount = val * 100;
+      asdr.values.d = amount;
+    },
+    setSustain: function (val) {
+      var amount = val / 100;
+      asdr.values.s = amount;
+    },
+    setRelease: function (val) {
+      var amount = val * 100;
+      asdr.values.r = amount;
+    },
+
   }
 
 
@@ -88,5 +102,8 @@ Modules.Effects = (function(){
     getOctaveOffset: getOctaveOffset,
     setReverb: setReverb,
     setAttack: asdr.setAttack,
+    setDecay: asdr.setDecay,
+    setSustain: asdr.setSustain,
+    setRelease: asdr.setRelease,
   }
 })();
