@@ -36,6 +36,7 @@ Modules.TouchEvents = (function() {
 
   function initSlider(threeCube, effect) {
     threeCube.addEventListener('cursorup', function() {
+      console.log(threeCube);
       Modules.Effects[effect](threeCube.position.x);
     });
 
@@ -44,16 +45,14 @@ Modules.TouchEvents = (function() {
     });
   }
 
-  function init(threeKeys, effects) {
+  function init(threeKeys) {
     initKeyEvents(threeKeys.majors, 'majors');
     initKeyEvents(threeKeys.minors, 'minors');
-    _.each(effects, function(value, key) {
-      initSlider(value, key);
-    })
   }
 
   return {
     init: init,
+    initSlider: initSlider,
   }
 
 

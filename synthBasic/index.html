@@ -33,7 +33,10 @@ function connectAltSpace() {
 		function(connection) {
 		  sceneSync = altspace.utilities.behaviors.SceneSync(connection.instance,
 		    {
-		      instantiators: {'createSynth': Modules.SynthMaker.createSynth },
+		      instantiators: {
+						'createSynth': Modules.SynthMaker.createSynth,
+						'createSlider': Modules.SynthMaker.createSlider,
+				 		},
 		      ready: ready
 		    });
 		  sim.scene.addBehavior(sceneSync);
@@ -47,6 +50,14 @@ function ready(firstInstance) {
 	if (firstInstance) {
 		sceneSync.instantiate('createSynth');
 	}
+	var sliders = Modules.SynthMaker.getEffectSliders();
+	_.each(sliders) {
+		//initSlider(value, key);
+
+		sceneSync.instantiate('createslider')
+	}
+
+	// FORLOOP INSIDE HERE
 }
 main();
 </script>
