@@ -11,9 +11,7 @@ Modules.TouchEvents = (function() {
       singleKey.addEventListener('cursordown', function() {
         singleKey.rotation.x += 0.04;
         singleKey.material.color.setHex(0xBA1A1A);
-        var musicSignal = Modules.Effects.getSignal();
-        var octaveOffset = Modules.Effects.getOctaveOffset();
-        musicSignal.set({ freq: noteValues[octave + octaveOffset][octaveIndex]}).play();
+        Modules.Effects.playSignal(noteValues[octave + octaveOffset][octaveIndex]);
       });
 
       singleKey.addEventListener('cursorup', function() {
@@ -38,18 +36,18 @@ Modules.TouchEvents = (function() {
 
   function initSlider(threeCube, effect) {
     threeCube.addEventListener('cursorup', function() {
-      Modules.Effects.setMul(threeCube.position.x);
+      Modules.Effects[effect](threeCube.position.x);
     });
 
     threeCube.addEventListener('cursorleave', function() {
-      Modules.Effects.setMul(threeCube.position.x);
+      Modules.Effects[effect](threeCube.position.x);
     });
   }
 
   function init(threeKeys, slider) {
     initKeyEvents(threeKeys.majors, 'majors');
     initKeyEvents(threeKeys.minors, 'minors');
-    initSlider(slider);
+    initSlider(slider, 'setReverb');
   }
 
   return {
