@@ -1,6 +1,5 @@
 Modules.Effects = (function(){
   var currentSignal = T('saw');
-  var asdr =T("adsr", {a:0, d:0, s:0, r:500}, currentSignal).play();
   var octaveOffset = 2;
   var threeKeys = {};
   var release = 500;
@@ -9,15 +8,17 @@ Modules.Effects = (function(){
       a: 0,
       d: 0,
       s: 0,
-      r: 0,
-    }
+      r: 2000,
+    },
 
     setAttack: function (val) {
       var amount = val * 100;
       this.values.a = amount;
     },
 
-    play: T("adsr", this.values, currentSignal).play();
+    play: function() {
+      return T("adsr", this.values, currentSignal).play();
+    },
   }
 
   // will later be able to arbitrarily determine octave
@@ -32,11 +33,16 @@ Modules.Effects = (function(){
   function playSignal(freq) {
     var octaveOffset = getOctaveOffset();
     currentSignal.set({freq: freq});
-    asdr.play.bang();
+    asdr.play().bang();
   }
 
+  function stopSignal() {
+    currentSignal.pause();
+    asdr.play().pause();
+  }
+
+  // issue: not resetting - any way to undo added effect in timbre?
   function setReverb(val) {
-    currentSignal = T(currentWaveForm);
     var mix = val / 100;
     currentSignal = T("reverb", {room: 1, damp: 0.45, mix: mix}, currentSignal)
   }
@@ -44,11 +50,6 @@ Modules.Effects = (function(){
   function setMul(val) {
     currentSignal.mul = val / 10;
   }
-
-
-
-
-
 
   function initWaveForms() {
   	var sync = altspace.utilities.behaviors.Object3DSync()
@@ -85,7 +86,9 @@ Modules.Effects = (function(){
     init: init,
     getSignal: getSignal,
     playSignal: playSignal,
+    stopSignal: stopSignal,
     getOctaveOffset: getOctaveOffset,
     setReverb: setReverb,
+    setAttack: asdr.setAttack,
   }
 })();

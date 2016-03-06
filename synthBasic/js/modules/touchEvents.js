@@ -17,15 +17,14 @@ Modules.TouchEvents = (function() {
       singleKey.addEventListener('cursorup', function() {
         singleKey.rotation.x -= 0.04;
         singleKey.material.color.setHex(color);
-        var musicSignal = Modules.Effects.getSignal();
-        musicSignal.pause();
+        Modules.Effects.stopSignal();
       });
 
       singleKey.addEventListener('cursorleave', function() {
         singleKey.rotation.x = 0;
         singleKey.material.color.setHex(color);
         var musicSignal = Modules.Effects.getSignal();
-        musicSignal.pause();
+        Modules.Effects.stopSignal();
       });
     }
 
@@ -47,7 +46,7 @@ Modules.TouchEvents = (function() {
   function init(threeKeys, slider) {
     initKeyEvents(threeKeys.majors, 'majors');
     initKeyEvents(threeKeys.minors, 'minors');
-    initSlider(slider, 'setReverb');
+    initSlider(slider, 'setAttack');
   }
 
   return {
