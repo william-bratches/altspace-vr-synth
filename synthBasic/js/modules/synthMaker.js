@@ -15,14 +15,19 @@ Modules.SynthMaker = (function() {
     signal = T(type);
   };
 
-  function createSlider(xIndex, effect, color) {
-    var controller = new THREE.Group();
-    var cube = Modules.ShapeMaker.createControlSlider(color);
+  function createSlider(args) {
+    console.log(args);
+    var knobColor = args.color || '#DADFE0';
+    var cube = Modules.ShapeMaker.createCube(40, knobColor);
     var backing = Modules.ShapeMaker.createBacking();
-    controller.add(cube, backing);
-    controller.translateX(xIndex);
-    sim.scene.add(controller);
-    Modules.touchEvents.initSlider(cube, effect);
+    cube.translateX(args.xIndex);
+    backing.translateX(backing);
+    cube.addBehaviors(
+      alt.Object3DSync(),
+      alt.Drag({x: {min: 0, max: 100}, y: true})
+    );
+    sim.scene.add(cube, backing);
+    Modules.TouchEvents.initSlider(cube, args.effect);
 
     // return the part relevant for event handlers.
     return cube;

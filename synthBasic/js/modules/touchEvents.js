@@ -36,7 +36,6 @@ Modules.TouchEvents = (function() {
 
   function initSlider(threeCube, effect) {
     threeCube.addEventListener('cursorup', function() {
-      console.log(threeCube);
       Modules.Effects[effect](threeCube.position.x);
     });
 

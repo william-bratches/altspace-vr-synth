@@ -47,11 +47,12 @@ function main() {
 }
 function ready(firstInstance) {
 	if (firstInstance) {
-		sceneSync.instantiate('createSynth');
 		var sliders = Modules.SynthMaker.getEffectSliders();
 		for (var i = 0; i < sliders.length; i++) {
-			sceneSync.instantiate('createslider', i * 200, sliders[i]);
+			console.log(sliders[i]);
+			sceneSync.instantiate('createSlider', {xIndex: (i * 200), effect: sliders[i]});
 		}
+		sceneSync.instantiate('createSynth');
 	}
 
 
