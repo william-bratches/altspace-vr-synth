@@ -9,6 +9,7 @@ Modules.TouchEvents = (function() {
       var octave = Math.floor(index / 7);
       var octaveIndex = index % octaveAmount;
       singleKey.addEventListener('cursordown', function() {
+        var octaveOffset = Modules.Effects.getOctaveOffset();
         singleKey.rotation.x += 0.04;
         singleKey.material.color.setHex(0xBA1A1A);
         Modules.Effects.playSignal(noteValues[octave + octaveOffset][octaveIndex]);

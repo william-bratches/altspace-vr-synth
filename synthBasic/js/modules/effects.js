@@ -5,21 +5,18 @@ Modules.Effects = (function(){
   var release = 500;
   var asdr = {
     values: {
-      a: 0,
-      d: 0,
-      s: 0,
-      r: 2000,
+      a: 1,
+      d: 1,
+      s: 1,
+      r: 1,
     },
-
     setAttack: function (val) {
       var amount = val * 100;
       this.values.a = amount;
     },
-
-    play: function() {
-      return T("adsr", this.values, currentSignal).play();
-    },
   }
+  var asdrPlay = T("adsr", asdr.values, currentSignal);
+
 
   // will later be able to arbitrarily determine octave
   function getOctaveOffset() {
@@ -31,14 +28,12 @@ Modules.Effects = (function(){
   }
 
   function playSignal(freq) {
-    var octaveOffset = getOctaveOffset();
     currentSignal.set({freq: freq});
-    asdr.play().bang();
+    asdrPlay.play().bang();
   }
 
   function stopSignal() {
-    currentSignal.pause();
-    asdr.play().pause();
+    asdrPlay.release();
   }
 
   // issue: not resetting - any way to undo added effect in timbre?
