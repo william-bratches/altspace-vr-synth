@@ -56,7 +56,7 @@ Modules.Effects = (function(){
     asdrPlay = '';
   }
 
-  // issue: not resetting - any way to undo added effect in timbre?
+  // wip not working too great
   function setReverb(val) {
     var mix = val / 100;
     currentSignal = T("reverb", {room: 1, damp: 0.45, mix: mix}, currentSignal)

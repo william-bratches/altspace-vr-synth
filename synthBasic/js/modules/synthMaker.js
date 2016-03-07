@@ -1,7 +1,7 @@
 Modules.SynthMaker = (function() {
   (function(){var a = window.altspace; (function insert(ss, t){for(var i in ss) {for (var j in ss[i]) {t[j] = ss[i][j];}};})([a, a.utilities,a.utilities.behaviors, a.utilities.shims], window.alt = {})})();
 
-  var effectSliders = ['setAttack', 'setDecay', 'setSustain', 'setRelease', 'setReverb'];
+  var effectSliders = ['setAttack', 'setDecay', 'setSustain', 'setRelease'];
 
   function getEffectSliders() {
     return effectSliders;
