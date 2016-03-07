@@ -27,7 +27,7 @@ Modules.SynthMaker = (function() {
       alt.Object3DSync(),
       alt.Drag({x: {min: args.xIndex, max: args.xIndex + 100}, y: true})
     );
-    Modules.TouchEvents.initSlider(cube, args.effect);
+    Modules.TouchEvents.initSlider(cube, args.effect, args.xIndex);
 
     // return the part relevant for event handlers.
     return cube;

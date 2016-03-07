@@ -34,13 +34,13 @@ Modules.TouchEvents = (function() {
     }
   }
 
-  function initSlider(threeCube, effect) {
+  function initSlider(threeCube, effect, xIndex) {
     threeCube.addEventListener('cursorup', function() {
-      Modules.Effects[effect](threeCube.position.x);
+      console.log(threeCube.position.x - xIndex);
+      Modules.Effects[effect](threeCube.position.x - xIndex);
     });
-
     threeCube.addEventListener('cursorleave', function() {
-      Modules.Effects[effect](threeCube.position.x);
+      Modules.Effects[effect](threeCube.position.x - xIndex);
     });
   }
 
