@@ -31,6 +31,10 @@ Modules.Effects = (function(){
     },
   }
 
+  function setOsc() {
+
+  }
+
   // will later be able to arbitrarily determine octave
   function getOctaveOffset() {
     return octaveOffset;
@@ -102,6 +106,7 @@ Modules.Effects = (function(){
     playSignal: playSignal,
     stopSignal: stopSignal,
     getOctaveOffset: getOctaveOffset,
+    setOsc: setOsc,
     setReverb: setReverb,
     setAttack: asdr.setAttack,
     setDecay: asdr.setDecay,

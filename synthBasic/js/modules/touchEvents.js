@@ -36,7 +36,6 @@ Modules.TouchEvents = (function() {
 
   function initSlider(threeCube, effect, xIndex) {
     threeCube.addEventListener('cursorup', function() {
-      console.log(threeCube.position.x - xIndex);
       Modules.Effects[effect](threeCube.position.x - xIndex);
     });
     threeCube.addEventListener('cursorleave', function() {

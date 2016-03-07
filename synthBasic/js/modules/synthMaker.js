@@ -1,7 +1,7 @@
 Modules.SynthMaker = (function() {
   (function(){var a = window.altspace; (function insert(ss, t){for(var i in ss) {for (var j in ss[i]) {t[j] = ss[i][j];}};})([a, a.utilities,a.utilities.behaviors, a.utilities.shims], window.alt = {})})();
 
-  var effectSliders = ['setAttack', 'setDecay', 'setSustain', 'setRelease'];
+  var effectSliders = ['setAttack', 'setDecay', 'setSustain', 'setRelease', 'setReverb'];
 
   function getEffectSliders() {
     return effectSliders;
@@ -16,7 +16,6 @@ Modules.SynthMaker = (function() {
   };
 
   function createSlider(args) {
-    console.log(args);
     var knobColor = args.color || '#DADFE0';
     var cube = Modules.ShapeMaker.createCube(40, knobColor);
     var backing = Modules.ShapeMaker.createBacking();
