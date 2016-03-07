@@ -20,13 +20,13 @@ Modules.SynthMaker = (function() {
     var knobColor = args.color || '#DADFE0';
     var cube = Modules.ShapeMaker.createCube(40, knobColor);
     var backing = Modules.ShapeMaker.createBacking();
-    cube.translateX(args.xIndex);
-    backing.translateX(backing);
+    backing.translateX(args.xIndex);
+    cube.position.x = args.xIndex;
+    sim.scene.add(cube, backing);
     cube.addBehaviors(
       alt.Object3DSync(),
-      alt.Drag({x: {min: 0, max: 100}, y: true})
+      alt.Drag({x: {min: args.xIndex, max: args.xIndex + 100}, y: true})
     );
-    sim.scene.add(cube, backing);
     Modules.TouchEvents.initSlider(cube, args.effect);
 
     // return the part relevant for event handlers.
